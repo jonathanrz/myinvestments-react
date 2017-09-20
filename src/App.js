@@ -26,10 +26,18 @@ const investments = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      investments,
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        { investments.map(item =>
+        { this.state.investments.map(item =>
           <div key={item.id}>
             <span>{item.name}</span>
             <span>{item.type}</span>
