@@ -25,24 +25,80 @@ const investments = [
   }
 ];
 
+const isSearched = (searchTerm) => (item) => !searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase());
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       investments,
+      searchTerm: '',
     };
+
+    this.onSearchChange = this.onSearchChange.bind(this);
+  }
+
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
   }
 
   render() {
+    const { searchTerm, investments } = this.state;
     return (
-      <div className="App">
-        { this.state.investments.map(item =>
-          <div key={item.id}>
-            <span>{item.name}</span>
-            <span>{item.type}</span>
-            <span>{item.holder}</span>
-            <span>{item.due_date}</span>
+      <div className="page">
+        <div className="interactions">
+          <Search
+            value={searchTerm}
+            onChange={this.onSearchChange}
+          >
+            Search
+          </Search>
+        </div>
+        <Table
+          investments={investments}
+          pattern={searchTerm}
+          onDismiss={this.onDismiss}
+        />
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render() {
+    const { value, onChange, children } = this.props;
+    return (
+      <form>
+        {children} <input
+          type="text"
+          value={value}
+          onChange={onChange}
+        />
+      </form>
+    );
+  }
+}
+
+class Table extends Component {
+  render() {
+    const { investments, pattern } = this.props;
+    return (
+      <div className="table">
+        { investments.filter(isSearched(pattern)).map(item =>
+          <div key={item.id} className="table-row">
+            <span style={{ width: '40%' }}>
+              {item.name}
+            </span>
+            <span style={{ width: '20%' }}>
+              {item.type}
+            </span>
+            <span style={{ width: '20%' }}>
+              {item.holder}
+            </span>
+            <span style={{ width: '20%' }}>
+              {item.due_date}
+            </span>
           </div>
         )}
       </div>
