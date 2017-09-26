@@ -1,29 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import secrets from './secrets.json'
 
-const investments = [
-  {
-      id: "58f3f5d4524b280012157c09",
-      holder: "Bradesco",
-      type: "Tesouro Direto",
-      name: "Tesouro IPCA+ 2019 (NTNB Princ)",
-      due_date: "2019-05-15T00:00:00.000Z"
-  },
-  {
-    id: "58f41036b740dc0012ecbf2b",
-    holder: "Easynvest",
-    type: "CDB",
-    name: "Banco Máxima",
-    due_date: "2019-04-05T00:00:00.000Z"
-  },
-  {
-    id: "598488aeac0e3010116f3fbb",
-    holder: "Clear",
-    type: "Ação",
-    name: "TUPY3"
-  }
-];
+const PATH_BASE = secrets.server_url;
+const PATH_INVESTMENTS = '/investments';
 
 const isSearched = (searchTerm) => (item) => !searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -32,11 +13,29 @@ class App extends Component {
     super(props);
 
     this.state = {
-      investments,
+      investments: null,
       searchTerm: '',
     };
 
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.fetchInvestments = this.fetchInvestments.bind(this);
+  }
+
+  fetchInvestments() {
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'auth-token': secrets.api_key
+    }
+
+    fetch(`${PATH_BASE}${PATH_INVESTMENTS}` , {headers: headers})
+      .then(response => response.json())
+      .then(result => this.setState({investments: result}))
+      .catch(e => e);
+  }
+
+  componentDidMount() {
+    this.fetchInvestments();
   }
 
   onSearchChange(event) {
@@ -55,11 +54,13 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table
-          investments={investments}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+        { investments &&
+          <Table
+            investments={investments}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        }
       </div>
     );
   }
