@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import secrets from './secrets.json'
+import secrets from './secrets.json';
 
 const PATH_BASE = secrets.server_url;
 const PATH_INVESTMENTS = '/investments';
 
-const isSearched = (searchTerm) => (item) => !searchTerm || item.name.toLowerCase().includes(searchTerm.toLowerCase());
+const isSearched = searchTerm => item => !searchTerm || item.name.includes(searchTerm);
 
 class App extends Component {
   constructor(props) {
@@ -21,25 +20,25 @@ class App extends Component {
     this.fetchInvestments = this.fetchInvestments.bind(this);
   }
 
-  fetchInvestments() {
-    const headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'auth-token': secrets.api_key
-    }
-
-    fetch(`${PATH_BASE}${PATH_INVESTMENTS}` , {headers: headers})
-      .then(response => response.json())
-      .then(result => this.setState({investments: result}))
-      .catch(e => e);
-  }
-
   componentDidMount() {
     this.fetchInvestments();
   }
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
+  }
+
+  fetchInvestments() {
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'auth-token': secrets.api_key,
+    };
+
+    fetch(`${PATH_BASE}${PATH_INVESTMENTS}`, { headers })
+      .then(response => response.json())
+      .then(result => this.setState({ investments: result }))
+      .catch(e => e);
   }
 
   render() {
@@ -87,7 +86,7 @@ class Table extends Component {
     return (
       <div className="table">
         { investments.filter(isSearched(pattern)).map(item =>
-          <div key={item.id} className="table-row">
+          (<div key={item.id} className="table-row">
             <span style={{ width: '40%' }}>
               {item.name}
             </span>
@@ -100,7 +99,7 @@ class Table extends Component {
             <span style={{ width: '20%' }}>
               {item.due_date}
             </span>
-          </div>
+          </div>),
         )}
       </div>
     );
