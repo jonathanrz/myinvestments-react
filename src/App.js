@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
+import { Component } from 'react';
 import secrets from './secrets.json';
+import template from './template';
+import './App.css';
 
 const PATH_BASE = secrets.server_url;
 const PATH_INVESTMENTS = '/investments';
-
-const isSearched = searchTerm => item => !searchTerm || item.name.includes(searchTerm);
 
 class App extends Component {
   constructor(props) {
@@ -43,66 +42,7 @@ class App extends Component {
 
   render() {
     const { searchTerm, investments } = this.state;
-    return (
-      <div className="page">
-        <div className="interactions">
-          <Search
-            value={searchTerm}
-            onChange={this.onSearchChange}
-          >
-            Search
-          </Search>
-        </div>
-        { investments &&
-          <Table
-            investments={investments}
-            pattern={searchTerm}
-            onDismiss={this.onDismiss}
-          />
-        }
-      </div>
-    );
-  }
-}
-
-class Search extends Component {
-  render() {
-    const { value, onChange, children } = this.props;
-    return (
-      <form>
-        {children} <input
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-      </form>
-    );
-  }
-}
-
-class Table extends Component {
-  render() {
-    const { investments, pattern } = this.props;
-    return (
-      <div className="table">
-        { investments.filter(isSearched(pattern)).map(item =>
-          (<div key={item.id} className="table-row">
-            <span style={{ width: '40%' }}>
-              {item.name}
-            </span>
-            <span style={{ width: '20%' }}>
-              {item.type}
-            </span>
-            <span style={{ width: '20%' }}>
-              {item.holder}
-            </span>
-            <span style={{ width: '20%' }}>
-              {item.due_date}
-            </span>
-          </div>),
-        )}
-      </div>
-    );
+    return template(searchTerm, investments);
   }
 }
 
