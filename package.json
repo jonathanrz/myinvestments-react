@@ -7,17 +7,8 @@
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.13"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "flow start": "flow start",
-    "flow stop": "flow stop",
-    "flow status": "flow status",
-    "flow coverage": "flow coverage"
-  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^4.7.2",
@@ -27,5 +18,13 @@
     "eslint-plugin-react": "^7.4.0",
     "flow-bin": "^0.56.0",
     "prettier-eslint": "^8.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "babel src/ -d lib/",
+    "prepublish": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "flow": "flow"
   }
 }
