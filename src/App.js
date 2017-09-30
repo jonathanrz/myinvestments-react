@@ -1,18 +1,7 @@
 import { Component } from 'react';
-import axios from 'axios';
-import secrets from './secrets.json';
 import template from './template';
+import Api from './Api';
 import './App.css';
-
-const instance = axios.create({
-  baseURL: secrets.server_url,
-  timeout: 1000,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    'auth-token': secrets.api_key,
-  },
-});
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +11,8 @@ class App extends Component {
       investments: null,
       searchTerm: '',
     };
+
+    this.api = new Api();
 
     this.onSearchChange = this.onSearchChange.bind(this);
     this.fetchInvestments = this.fetchInvestments.bind(this);
@@ -36,8 +27,8 @@ class App extends Component {
   }
 
   fetchInvestments() {
-    instance
-      .get('/investments')
+    this.api
+      .getInvestments()
       .then(response => response.data)
       .then(result => this.setState({ investments: result }))
       .catch(e => console.error(e));
