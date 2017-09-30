@@ -5,7 +5,7 @@ const isSearched = searchTerm => item => !searchTerm || item.name.includes(searc
 const template = (investments, pattern) => (
   <div className="table">
     {investments.filter(isSearched(pattern)).map(item => (
-      <div key={item.id} className="table-row">
+      <div key={item._id} className="table-row">
         <span style={{ width: '40%' }}>{item.name}</span>
         <span style={{ width: '20%' }}>{item.type}</span>
         <span style={{ width: '20%' }}>{item.holder}</span>
