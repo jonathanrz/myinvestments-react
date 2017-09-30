@@ -1,10 +1,18 @@
 import { Component } from 'react';
+import axios from 'axios';
 import secrets from './secrets.json';
 import template from './template';
 import './App.css';
 
-const PATH_BASE = secrets.server_url;
-const PATH_INVESTMENTS = '/investments';
+const instance = axios.create({
+  baseURL: secrets.server_url,
+  timeout: 1000,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'auth-token': secrets.api_key,
+  },
+});
 
 class App extends Component {
   constructor(props) {
@@ -28,16 +36,11 @@ class App extends Component {
   }
 
   fetchInvestments() {
-    const headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'auth-token': secrets.api_key,
-    };
-
-    fetch(`${PATH_BASE}${PATH_INVESTMENTS}`, { headers })
-      .then(response => response.json())
+    instance
+      .get('/investments')
+      .then(response => response.data)
       .then(result => this.setState({ investments: result }))
-      .catch(e => e);
+      .catch(e => console.error(e));
   }
 
   render() {
