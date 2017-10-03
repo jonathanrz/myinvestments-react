@@ -2,10 +2,10 @@ import React from 'react';
 import Search from './search';
 import Table from './table';
 
-const template = (searchTerm, investments) => (
+const template = (searchTerm, investments, onSearchChange) => (
   <div className="page">
     <div className="interactions">
-      <Search value={searchTerm} onChange={this.onSearchChange}>
+      <Search value={searchTerm} onChange={onSearchChange}>
         Search
       </Search>
     </div>

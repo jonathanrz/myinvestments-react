@@ -36,7 +36,7 @@ class App extends Component {
 
   render() {
     const { searchTerm, investments } = this.state;
-    return template(searchTerm, investments);
+    return template(searchTerm, investments, this.onSearchChange);
   }
 }
 
