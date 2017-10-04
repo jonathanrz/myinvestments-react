@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import template from './template';
-import Api from './Api';
-import './App.css';
+import Api from '../Api';
+import './index.css';
 
-class App extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -40,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Home;

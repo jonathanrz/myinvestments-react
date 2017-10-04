@@ -1,18 +1,13 @@
 import React from 'react';
-import Search from './search';
-import Table from './table';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './home';
 
-const template = (searchTerm, investments, onSearchChange) => (
-  <div className="page">
-    <div className="interactions">
-      <Search value={searchTerm} onChange={onSearchChange}>
-        Search
-      </Search>
+const template = () => (
+  <Router>
+    <div>
+      <Route path="/" exact component={Home} />
     </div>
-    {investments && (
-      <Table investments={investments} pattern={searchTerm} onDismiss={this.onDismiss} />
-    )}
-  </div>
+  </Router>
 );
 
 export default template;
