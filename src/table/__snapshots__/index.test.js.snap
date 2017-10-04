@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App snapshots 1`] = `
+<div
+  className="table"
+>
+  <div
+    className="table-row"
+  >
+    <span
+      style={
+        Object {
+          "width": "40%",
+        }
+      }
+    >
+      Tesouro IPCA+ 2019 (NTNB Princ)
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      Tesouro Direto
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      Bradesco
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      2019-05-15T00:00:00.000Z
+    </span>
+  </div>
+  <div
+    className="table-row"
+  >
+    <span
+      style={
+        Object {
+          "width": "40%",
+        }
+      }
+    >
+      Tesouro IPCA+ com Juros Semestrais 2026 (NTNB)
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      Tesouro Direto
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      Bradesco
+    </span>
+    <span
+      style={
+        Object {
+          "width": "20%",
+        }
+      }
+    >
+      2026-08-15T00:00:00.000Z
+    </span>
+  </div>
+</div>
+`;
