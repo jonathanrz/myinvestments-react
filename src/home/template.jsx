@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from '../common/search';
-import Table from '../common/table';
+import Investments from '../investments';
 
 const template = (searchTerm, investments, onSearchChange) => (
   <div className="page">
@@ -10,7 +10,7 @@ const template = (searchTerm, investments, onSearchChange) => (
       </Search>
     </div>
     {investments && (
-      <Table investments={investments} pattern={searchTerm} onDismiss={this.onDismiss} />
+      <Investments investments={investments} pattern={searchTerm} onDismiss={this.onDismiss} />
     )}
   </div>
 );
